@@ -59,3 +59,58 @@ deployment.apps/nodejs-test created
 ```
 $ docker run -it boonchu/nodejs-test:v1.0 /bin/bash
 ```
+
+- Scale deployment with 'replicas' to 6.
+```
+$ kubectl get pods
+NAME                           READY   STATUS    RESTARTS   AGE
+myip-5ccdf7647-9crm9           1/1     Running   2          31h
+myip-5ccdf7647-9rnhg           1/1     Running   0          164m
+myip-5ccdf7647-llcjn           1/1     Running   2          31h
+myip-5ccdf7647-rs68t           1/1     Running   0          164m
+nodejs-test-7f6547f45f-99d7b   1/1     Running   0          2m49s
+
+$ kubectl scale deployment nodejs-test --replicas=6
+
+$ kubectl get pods -o wide -w
+NAME                           READY   STATUS              RESTARTS   AGE     IP             NODE                   NOMINATED NODE
+myip-5ccdf7647-9crm9           1/1     Running             2          31h     10.244.1.162   kubenode-1.k8s.local   <none>
+myip-5ccdf7647-9rnhg           1/1     Running             0          164m    10.244.2.85    kubenode-2.k8s.local   <none>
+myip-5ccdf7647-llcjn           1/1     Running             2          31h     10.244.1.163   kubenode-1.k8s.local   <none>
+myip-5ccdf7647-rs68t           1/1     Running             0          164m    10.244.2.86    kubenode-2.k8s.local   <none>
+nodejs-test-7f6547f45f-5qzsr   0/1     ContainerCreating   0          4s      <none>         kubenode-1.k8s.local   <none>
+nodejs-test-7f6547f45f-6p6b4   0/1     ContainerCreating   0          4s      <none>         kubenode-3.k8s.local   <none>
+nodejs-test-7f6547f45f-99d7b   1/1     Running             0          3m15s   10.244.3.47    kubenode-3.k8s.local   <none>
+nodejs-test-7f6547f45f-bnzng   0/1     ContainerCreating   0          4s      <none>         kubenode-3.k8s.local   <none>
+nodejs-test-7f6547f45f-xpn9f   0/1     ContainerCreating   0          4s      <none>         kubenode-2.k8s.local   <none>
+nodejs-test-7f6547f45f-zdvq5   0/1     ContainerCreating   0          4s      <none>         kubenode-3.k8s.local   <none>
+
+$ kubectl get pods -l type=nodejs -o wide
+NAME                           READY   STATUS    RESTARTS   AGE     IP             NODE                   NOMINATED NODE
+nodejs-test-7f6547f45f-5qzsr   1/1     Running   0          6m26s   10.244.1.190   kubenode-1.k8s.local   <none>
+nodejs-test-7f6547f45f-6p6b4   1/1     Running   0          6m26s   10.244.3.49    kubenode-3.k8s.local   <none>
+nodejs-test-7f6547f45f-99d7b   1/1     Running   0          9m37s   10.244.3.47    kubenode-3.k8s.local   <none>
+nodejs-test-7f6547f45f-bnzng   1/1     Running   0          6m26s   10.244.3.50    kubenode-3.k8s.local   <none>
+nodejs-test-7f6547f45f-xpn9f   1/1     Running   0          6m26s   10.244.2.99    kubenode-2.k8s.local   <none>
+nodejs-test-7f6547f45f-zdvq5   1/1     Running   0          6m26s   10.244.3.48    kubenode-3.k8s.local   <none>
+```
+
+- Expose LB L2 service.
+```
+$ kubectl expose deployment nodejs-test --type=LoadBalancer --port=3000 --target-port=80
+service/nodejs-test exposed
+
+$ kubectl get endpoints -o wide nodejs-test
+NAME          ENDPOINTS                                                   AGE
+nodejs-test   10.244.1.190:80,10.244.2.99:80,10.244.3.47:80 + 3 more...   2m16s
+
+$ kubectl get svc nodejs-test
+NAME          TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+nodejs-test   LoadBalancer   10.111.172.87   10.0.2.51     80:30179/TCP   6s
+
+$ curl 10.0.2.51; echo
+Hello World!
+
+$ curl 10.0.2.51; echo
+Hello World!
+```

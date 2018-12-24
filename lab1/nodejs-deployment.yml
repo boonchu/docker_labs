@@ -16,7 +16,7 @@ spec:
         type: nodejs
     spec:
       containers:
-      - image: boonchu/nodejs-test:v1.0
+      - image: boonchu/nodejs-test:latest
         name: nodejs-test
         ports:
           - containerPort: 3000
