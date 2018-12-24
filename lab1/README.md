@@ -114,3 +114,37 @@ Hello World!
 $ curl 10.0.2.51; echo
 Hello World!
 ```
+
+- List the contents in instance.
+```
+$ kubectl exec nodejs-test-7f6547f45f-5qzsr -- ls /app
+Dockerfile
+docker-build
+index.js
+node_modules
+nodejs-deployment.yml
+package.json
+```
+
+- Describes the service.
+```
+$ kubectl describe svc nodejs-test
+Name:                     nodejs-test
+Namespace:                default
+Labels:                   run=nodejs-test
+Annotations:              <none>
+Selector:                 run=nodejs-test
+Type:                     LoadBalancer
+IP:                       10.97.16.78
+LoadBalancer Ingress:     10.0.2.51
+Port:                     <unset>  80/TCP
+TargetPort:               3000/TCP
+NodePort:                 <unset>  31156/TCP
+Endpoints:                10.244.1.190:3000,10.244.2.99:3000,10.244.3.47:3000 + 3 more...
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:
+  Type    Reason       Age    From                Message
+  ----    ------       ----   ----                -------
+  Normal  IPAllocated  7m26s  metallb-controller  Assigned IP "10.0.2.51"
+```
