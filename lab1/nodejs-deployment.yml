@@ -1,0 +1,22 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: nodejs-test
+  name: nodejs-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nodejs-test
+  template:
+    metadata:
+      labels:
+        run: nodejs-test
+        type: nodejs
+    spec:
+      containers:
+      - image: boonchu/nodejs-test:v1.0
+        name: nodejs-test
+        ports:
+          - containerPort: 3000
