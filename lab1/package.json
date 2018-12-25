@@ -8,5 +8,9 @@
     "start": "node index.js"
   },
   "author": "Boonchu",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "os": "^0.1.1"
+  }
 }
