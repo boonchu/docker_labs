@@ -113,6 +113,7 @@ FILE ./http-app_docker_build
 docker build -t http_lab2 -f ./dockerfile_4 .
 docker tag `docker image ls -q http_lab2` boonchu/http_lab2:v1
 docker push boonchu/http_lab2:v1
+```
 
 - Create new pod MANIFEST.
 ```
