@@ -106,14 +106,13 @@ Hello World
 
 #### Lab 2: Pod Readiness.
 - Build new image and push to docker hub.
+- New image locates publicly at docker.io/boonchu/http_lab2:v1
 ```
 FILE ./http-app_docker_build
 
 docker build -t http_lab2 -f ./dockerfile_4 .
 docker tag `docker image ls -q http_lab2` boonchu/http_lab2:v1
 docker push boonchu/http_lab2:v1
-
-# new image locates publicly at docker.io/boonchu/http_lab2:v1
 
 - Create new pod MANIFEST.
 ```
