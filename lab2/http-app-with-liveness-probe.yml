@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: http-app
+  name: http-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: http-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: http-app
+        app: python-web
+    spec:
+      containers:
+      - image: docker.io/boonchu/http_lab2:v1
+        imagePullPolicy: Always
+        name: http-app
+        command: ['/bin/sh', '-c', '/app/start_http.sh']
+        resources: {}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          timeoutSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          timeoutSeconds: 1
+          initialDelaySeconds: 3
+          periodSeconds: 3
+status: {}

@@ -1,0 +1,4 @@
+FROM docker.io/boonchu/docker_lab2:latest
+
+ADD hello /hello
+ENTRYPOINT ["/hello"]

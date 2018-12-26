@@ -1,0 +1,15 @@
+FROM library/python:3.3
+
+ADD ./requirements.txt /app/requirements.txt
+ADD ./start_http.sh /app/start_http.sh
+
+RUN chmod +x /app/start_http.sh
+
+WORKDIR /app
+RUN python -m pip install --upgrade pip
+RUN pip3 install -r requirements.txt
+
+# Testing 
+# RUN pip3 install -e .
+# RUN make clean
+# CMD ["pytest", "-vv", "-s"]
