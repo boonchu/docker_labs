@@ -1,0 +1,5 @@
+#### [Jenkins CI/CD with Helm](https://github.com/eldada/jenkins-pipeline-kubernetes)
+#### [Jenkins CI/CD on Kubernetes](https://medium.com/containerum/configuring-ci-cd-on-kubernetes-with-jenkins-89eab7234270)
+#### [Building CI/CD Docker Jenkins](https://medium.com/@phayao/%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87-ci-cd-%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2-jenkins-%E0%B8%9A%E0%B8%99-kubernetes-%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%87%E0%B9%88%E0%B8%B2%E0%B8%A2%E0%B9%86-fd4a1a496c46?fbclid=IwAR1E-HH5T2RlM8GM-6joWn5usLLf1glWmp3i7giU9HJ2uUcyxLvI0TC7wEs)
+#### [Deploy Jenkins on K8s](https://medium.com/@vatthanachai.w/deploy-jenkins-on-k8s-c2df6c109915)
+#### [GitHub Docker Flow Stacks](https://github.com/boonchu/docker-flow-stacks.git)

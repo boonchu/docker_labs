@@ -1,0 +1,33 @@
+version: '3'
+services:
+  djangoapp:
+    build: .
+    image: sigmaaggregator/djangoapp
+    labels:
+      - kompose.service.type=NodePort
+    volumes:
+      - .:/djangoapp
+      - static_volume:/djangoapp/static
+    ports:
+      - 4000:4000
+    networks:
+      - nginx_network
+
+  nginx:
+    image: nginx:1.13
+    ports:
+      - 80:80
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - static_volume:/djangoapp/static
+    depends_on:
+      - djangoapp
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
+
+volumes:
+  static_volume:
