@@ -72,6 +72,17 @@ NAME                         CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS  
 persistentvolume/pvc-nfs-1   10Gi       RWX            Delete           Bound     jenkins/jenkins-k8s-claim   nfs-storage              58s
 ```
 
+#### Login to jenkins server from NodePort or Load Balancer.
+```
+- Setup pipeline job to fetch with SCM from git Jenkinsfile.
+
+https://github.com/boonchu/simple-spring-restful-app
+
+- Prepare kubernetes cluster to allow 'jenkins' to deploy on specific cluster/namespace.
+
+- Run build job if SCM is disable.
+```
+
 #### Refs.
 
 - [Docker build based on this git hub](https://github.com/iphayao/jenkins-k8s)
