@@ -2,8 +2,9 @@
 
 [Jenkins Server github](https://github.com/jenkinsci/jenkins)
 [Docker Hub Jenkins](https://hub.docker.com/_/jenkins/)
+[Fabric8.io](http://fabric8.io/)
 
-- Becomes 'jenkins' to dump plugins report from the current CI/CD environment.
+- (Optional) Becomes 'jenkins' to dump plugins report from the current CI/CD environment.
 ```
 mkdir cli
 wget http://jenkins-1.k8s.local:8080/jnlpJars/jenkins-cli.jar

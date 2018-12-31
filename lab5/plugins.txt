@@ -1,1 +1,6 @@
-git:3.9.1
+git
+gradle
+github
+credentials
+kerberos-sso
+kubernetes-cd
