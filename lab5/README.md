@@ -80,7 +80,47 @@ https://github.com/boonchu/simple-spring-restful-app
 
 - Prepare kubernetes cluster to allow 'jenkins' to deploy on specific cluster/namespace.
 
+$ kubectl create clusterrolebinding permissive-binding --clusterrole=cluster-admin \
+  --user=jenkins --namespace=jenkins --group=system:serviceaccounts \
+  --dry-run --output=yaml > jenkins-rbac.yaml
+$ kubectl create -f ./jenkins-rbac.yaml
+
 - Run build job if SCM is disable.
+```
+
+#### Final deployment.
+```
+$ kall
+NAME                                            READY   STATUS    RESTARTS   AGE
+pod/jenkins-k8s-deployment-fd75fc44d-csqgd      1/1     Running   0          52m
+pod/simple-spring-deployment-79c8f564bc-wbkdg   1/1     Running   0          3m2s
+
+NAME                         CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                       STORAGECLASS   REASON   AGE
+persistentvolume/pvc-nfs-1   10Gi       RWX            Delete           Bound    jenkins/jenkins-k8s-claim   nfs-storage             52m
+
+NAME                                      STATUS   VOLUME      CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/jenkins-k8s-claim   Bound    pvc-nfs-1   10Gi       RWX            nfs-storage    52m
+
+NAME                                                        DESIRED   CURRENT   READY   AGE
+replicaset.extensions/jenkins-k8s-deployment-fd75fc44d      1         1         1       52m
+replicaset.extensions/simple-spring-deployment-79c8f564bc   1         1         1       3m2s
+
+NAME                            TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/jenkins-k8s-service     LoadBalancer   10.106.208.31    10.0.2.51     8080:31508/TCP   52m
+service/simple-spring-service   LoadBalancer   10.104.182.158   10.0.2.55     8080:30589/TCP   3m2s
+
+NAME                              ENDPOINTS          AGE
+endpoints/jenkins-k8s-service     10.244.3.14:8080   52m
+endpoints/simple-spring-service   10.244.2.9:8080    3m2s
+
+NAME                         TYPE                                  DATA   AGE
+secret/default-token-tqz6x   kubernetes.io/service-account-token   3      162m
+````
+
+#### Final Test.
+```
+$ curl http://10.0.2.55:8080/greeting;echo
+{"id":3,"content":"Hello, World"}
 ```
 
 #### Refs.
