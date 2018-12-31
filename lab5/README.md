@@ -72,12 +72,12 @@ NAME                         CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS  
 persistentvolume/pvc-nfs-1   10Gi       RWX            Delete           Bound     jenkins/jenkins-k8s-claim   nfs-storage              58s
 ```
 
-#### Login to jenkins server from NodePort or Load Balancer.
+#### Access to new jenkins server using NodePort or Load Balancer IP.
 ```
-- Setup pipeline job to fetch with SCM from git Jenkinsfile.
-
-https://github.com/boonchu/simple-spring-restful-app
-
+- Create credentials (Jenkins -> Credentials -> User and Password -> Defined "docker hub login")
+- Fork this link https://github.com/boonchu/simple-spring-restful-app
+- Edit Jenkinsfile to have appropriate docker hub project name and credentials.
+- Edit deployment.yaml to meet your environment.
 - Prepare kubernetes cluster to allow 'jenkins' to deploy on specific cluster/namespace.
 
 $ kubectl create clusterrolebinding permissive-binding --clusterrole=cluster-admin \
@@ -85,6 +85,7 @@ $ kubectl create clusterrolebinding permissive-binding --clusterrole=cluster-adm
   --dry-run --output=yaml > jenkins-rbac.yaml
 $ kubectl create -f ./jenkins-rbac.yaml
 
+- Setup pipeline job to fetch with SCM from git Jenkinsfile.
 - Run build job if SCM is disable.
 ```
 
