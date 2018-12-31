@@ -74,6 +74,7 @@ persistentvolume/pvc-nfs-1   10Gi       RWX            Delete           Bound   
 
 #### Refs.
 
+- [Docker build based on this git hub](https://github.com/iphayao/jenkins-k8s)
 - [Plugins.txt fails to install](https://github.com/jenkinsci/docker/issues/50)
 - [How to get a list of plugins:StackOverFlow.](https://stackoverflow.com/questions/9815273/how-to-get-a-list-of-installed-jenkins-plugins-with-name-and-version-pair)
 - [How to load plugins.txt to Docker](https://stackoverflow.com/questions/29328278/installing-jenkins-plugins-to-docker-jenkins)
