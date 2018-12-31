@@ -16,8 +16,13 @@ spec:
     spec:
       containers:
       - name: jenkins-k8s
-        image: boonchu/jenkins:lts-k8s
+        image: phayao/jenkins-k8s:lts
         imagePullPolicy: Always
+        env:
+          - name: ADMIN_USER
+            value: "admin"
+          - name: ADMIN_PASSWORD
+            value: "admin" 
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -38,7 +43,7 @@ kind: Service
 metadata:
   name: jenkins-k8s-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: jenkins-k8s
   ports:
@@ -67,7 +72,7 @@ spec:
     - hard
     - nfsvers=3
   nfs:
-    path: /var/nfs/kube
+    path: /var/nfs/jenkins
     server: 10.0.2.70
     readOnly: false
 ---

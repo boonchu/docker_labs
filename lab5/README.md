@@ -4,6 +4,11 @@
 [Docker Hub Jenkins](https://hub.docker.com/_/jenkins/)
 [Fabric8.io](http://fabric8.io/)
 
+- Objectives
+```
+- Migrate either bare metal or KVM Jenkins CI/CD current environment into k8s.
+```
+
 - (Optional) Becomes 'jenkins' to dump plugins report from the current CI/CD environment.
 ```
 mkdir cli
@@ -21,7 +26,10 @@ java -jar jenkins-cli.jar -s http://jenkins-1.k8s.local:8080/ \
 
 - Buld and push out.
 ```
-docker build -t boonchu/jenkins:lts-k8s .
+docker-compose build
+docker-compose -d up
+docker-compose -f logs
+docker-compose down
 docker login
 docker push boonchu/jenkins:lts-k8s
 ```

@@ -1,4 +1,4 @@
-FROM jenkinsci/jenkins:2.46.2
+FROM jenkinsci/jenkins:lts
 
 # Running as root to have an easy support for Docker
 USER root
@@ -30,7 +30,8 @@ RUN curl -LO https://www-eu.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-
 ENV PATH=/opt/apache-maven/bin:$PATH
 ENV _JAVA_OPTIONS=-Djdk.net.URLClassPath.disableClassPathURLCheck=true
 
-# Install kubectl
+# Install kubectl and helm
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
-chmod +x ./kubectl && \
-mv ./kubectl /usr/local/bin/kubectl | bash
+	chmod +x ./kubectl && \
+	mv ./kubectl /usr/local/bin/kubectl && \
+	curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash

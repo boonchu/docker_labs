@@ -1,6 +1,9 @@
 git
+git-client
 gradle
 github
+github-oauth
 credentials
-kerberos-sso
-kubernetes-cd
+kubernetes
+workflow-aggregator
+pipeline-utility-steps
