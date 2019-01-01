@@ -1,7 +1,7 @@
 FROM python:3.6
 ENV PYTHONUNBUFFERED 1
 
-RUN mkdir -p /code/requirements/
+RUN mkdir -p /code/{requirements,apps}/
 WORKDIR /code
 
 ADD requirements/. /code/requirements/
@@ -17,5 +17,4 @@ EXPOSE 4000
 # define the default command to run when starting the container
 CMD django-admin.py startproject apps . 
 # copy our django environment setup.
-COPY ./django-apps/. /code/apps/
 CMD gunicorn -w 3 -b 0.0.0.0:4000 apps.wsgi --reload
