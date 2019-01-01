@@ -1,13 +1,13 @@
 version: '3'
 services:
-  djangoapp:
+  django:
     build: .
-    image: sigmaaggregator/djangoapp
+    image: boonchu/django-gunicorn
     labels:
       - kompose.service.type=NodePort
     volumes:
-      - .:/djangoapp
-      - static_volume:/djangoapp/static
+      - .:/code
+      - static_volume:/code/static
     ports:
       - 4000:4000
     networks:
@@ -16,12 +16,12 @@ services:
   nginx:
     image: nginx:1.13
     ports:
-      - 80:80
+      - 8001:80
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
-      - static_volume:/djangoapp/static
+      - static_volume:/code/static
     depends_on:
-      - djangoapp
+      - django
     networks:
       - nginx_network
 

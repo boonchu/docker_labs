@@ -1,13 +1,13 @@
 FROM python:3.6
+ENV PYTHONUNBUFFERED 1
 
-RUN mkdir -p /djangoapp
-WORKDIR /djangoapp
-COPY . /djangoapp
+RUN mkdir -p /code/requirements/
+WORKDIR /code
 
-RUN pip install -r requirements.txt
+ADD requirements/. /code/requirements/
+ADD requirements.txt /code/
 
-# copy our project code
-RUN python manage.py collectstatic --no-input
+RUN pip install --no-cache-dir -r requirements.txt
 
 CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
 
@@ -15,4 +15,7 @@ CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
 EXPOSE 4000
 
 # define the default command to run when starting the container
-CMD ["gunicorn", "--bind", ":4000", "aggre.wsgi:application"]
+CMD django-admin.py startproject apps . 
+# copy our django environment setup.
+COPY ./django-apps/. /code/apps/
+CMD gunicorn -w 3 -b 0.0.0.0:4000 apps.wsgi --reload
