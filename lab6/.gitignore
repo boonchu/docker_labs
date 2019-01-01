@@ -1,0 +1,3 @@
+manage.py
+set-env
+apps/__pycache__*

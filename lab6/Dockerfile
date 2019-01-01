@@ -11,10 +11,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
 
+ADD . /code/
+
 # expose the port 4000
 EXPOSE 4000
 
-# define the default command to run when starting the container
-CMD django-admin.py startproject apps . 
+# Install ./apps project folder.
+# CMD django-admin.py startproject apps . 
+
 # copy our django environment setup.
 CMD gunicorn -w 3 -b 0.0.0.0:4000 apps.wsgi --reload
