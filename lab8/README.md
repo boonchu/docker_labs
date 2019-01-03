@@ -28,7 +28,9 @@ $ yarn add knex mysql2 body-parser helmet
 ```
 $ docker-compose up --build -d
 
-$ docker-compose logs
+$ docker-compose ps
+
+$ docker-compose logs ...choose one: swagger-nodejs|swagger-db
 
 $ docker-compose down
 ```
