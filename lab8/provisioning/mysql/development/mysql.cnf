@@ -1,0 +1,9 @@
+# 
+# https://gist.github.com/oinume/fc9b72bd8b14ab07e94c
+# 
+[client]
+port=3304
+
+# tells mysql to listen on port 3304 instead of the default 3306.
+[mysqld]
+port=3304

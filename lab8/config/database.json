@@ -1,0 +1,9 @@
+{
+  "development": {
+    "host": "swagger-db",
+    "user": "root",
+    "password": "password",
+    "database": "db_dev",
+    "port": 3304
+  }
+}

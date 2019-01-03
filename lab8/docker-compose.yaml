@@ -1,0 +1,47 @@
+# 
+# https://blog.gds-gov.tech/microservices-101-using-docker-swagger-knex-and-express-31b7bd61b814
+#
+version: "3"
+services:
+  swagger-nodejs:
+    build: ./
+    container_name: swagger-nodejs
+    entrypoint: ./docker-entrypoint.sh
+    # set the NODE_ENV to development. The other three environment variables 
+    # will tell our application whether to reset our database schema, perform 
+    # migrations, or seed the database, all of which we might want to toggle 
+    # on/off in different environments in future. 
+    environment:
+      - NODE_ENV=development
+      - DB_RESET=true
+      - DB_MIGRATE=true
+      - DB_SEED=true
+    # map the internal port 3000 (the latter 3000) to our host’s port 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/var/www/app
+    # tells Docker where in the container we should initialise the application in. 
+    working_dir: /var/www/app
+  swagger-db:
+    image: mysql:5.7.18
+    container_name: swagger-db
+    # initialise the mysqld daemon using the root user here.
+    command: mysqld --user=root
+    # the settings are located at /etc/mysql/conf.d which we map a local folder
+    # to so that we can inject our own settings.
+    volumes:
+      - ./provisioning/mysql/development:/etc/mysql/conf.d
+    environment:
+      MYSQL_USERNAME: "root"
+      MYSQL_DATABASE: "db_dev"
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+    # expose port 3304 over the internal network Docker creates to 
+    # link our defined services. 
+    expose:
+      - "3304"
+    # mapping port 3304 from the guest (container) to port 3303 of 
+    # our host.
+    ports:
+      - "3303:3304"

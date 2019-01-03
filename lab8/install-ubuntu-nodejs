@@ -1,0 +1,11 @@
+#
+# https://github.com/yarnpkg/yarn/issues/4961
+#
+cat <<EOF | sudo tee -a /etc/apt/sources.list.d/nodesource.list
+deb https://deb.nodesource.com/node_6.x xenial main
+deb-src https://deb.nodesource.com/node_6.x xenial main
+EOF
+curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+sudo apt-get update
+sudo apt-cache policy nodejs
+sudo apt-get install nodejs
