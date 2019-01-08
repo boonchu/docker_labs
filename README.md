@@ -29,3 +29,23 @@ export -f ed
 ```
 ed index.js
 ```
+
+#### Using Docker commands.
+
+```
+# -q "quiet" -show just the numeric ID.
+docker ps -aq
+
+# inspects the docker container.
+docker inspect --format '{{ .NetworkSettings.IPAddress }}' [CIN]
+
+# get all instance IDs and their IP addresses.
+docker inspect -f '{{.Name}} - {{.NetworkSettings.IPAddress }}' $(docker ps -aq)
+
+# stop instance
+docker stop <cid>
+
+# remove docker containers from the system.
+docker rm <cid>
+docker rm $(docker ps -aq)
+```
