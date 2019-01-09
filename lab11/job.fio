@@ -1,0 +1,15 @@
+[global]
+direct=1
+rw=randread
+size=200M
+numjobs=4
+norandommap
+time_based
+runtime=180
+
+[test-randread-1G]
+directory=/myvol
+bs=16k
+write_bw_log=randread-test
+write_lat_log=randread-test
+write_iops_log=randread-test
