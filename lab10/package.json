@@ -1,0 +1,14 @@
+{
+  "name": "docker_web_app",
+  "version": "1.0.0",
+  "description": "Foo or Bar Node.js on Docker",
+  "author": "Foo Bar <foo.bar@cloud.local>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1",
+    "chalk": "^2.4.2"
+  }
+}
