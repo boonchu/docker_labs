@@ -1,3 +1,24 @@
+package demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
+import java.util.Optional;
+
+
+import demo.Customer;
+import demo.CustomerRepository;
+
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
